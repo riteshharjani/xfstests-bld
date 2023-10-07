@@ -140,8 +140,8 @@ fi
 
 FILES=("$CONFIG_FN")
 
-if test -f "$KCONFIG_DIR/$KERN_ARCH-config" ; then
-    FILES+=("$KCONFIG_DIR/$KERN_ARCH-config")
+if test -f "$KCONFIG_DIR/$ARCH-config" ; then
+    FILES+=("$KCONFIG_DIR/$ARCH-config")
 fi
 
 if test -n "$DO_BLKTESTS" ; then
