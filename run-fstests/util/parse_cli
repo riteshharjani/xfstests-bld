@@ -422,6 +422,11 @@ while (( $# >= 1 )); do
 	    ARCH="$1"
 	    EXPLICIT_ARCH=yes
 	    ;;
+	--ppc64le)
+	    supported_flavors kvm
+	    ARCH="ppc64le"
+	    EXPLICIT_ARCH=yes
+	    ;;
 	--arm64)
 	    supported_flavors kvm gce
 	    ARCH="arm64"

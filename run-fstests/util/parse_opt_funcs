@@ -25,6 +25,9 @@ find_kernel_to_use()
 	arm64)
 	    kernel_in_build=arch/arm64/boot/Image
 	    ;;
+	ppc64le)
+	    kernel_in_build=arch/powerpc/boot/zImage
+	    ;;
 	*)
 	    echo "Unknown architecture in find_kernel_to_use: $ARCH"
 	    exit 1

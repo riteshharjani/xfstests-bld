@@ -52,6 +52,9 @@ do
 	--arm64)
 	    ARCH=arm64
 	    ;;
+	--ppc64le)
+	    ARCH=ppc64le
+	    ;;
 	--dpkg)
 	    DO_DPKG=yes
 	    DPKG_EXPLICIT=yes
@@ -104,6 +107,12 @@ case "$ARCH" in
 	    BLD_DIR=$BLD_DIR_X86_64
 	fi
 	;;
+	ppc64le)
+	if test -n "$BLD_DIR_PPC64LE" ; then
+	    BLD_DIR=$BLD_DIR_PPC64LE
+	fi
+	;;
+
     *)
 	echo "unknown architecture: $KERN_ARCH"
 	exit 1

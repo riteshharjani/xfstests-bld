@@ -21,6 +21,7 @@ function set_my_arch () {
 	aarch64)   MY_ARCH=arm64  ;;
 	i386|i686) MY_ARCH=i386   ;;
 	x86_64)    MY_ARCH=amd64  ;;
+	ppc64le)   MY_ARCH=ppc64le ;;
 	*)         MY_ARCH=$arch  ;;
     esac
 }
@@ -60,6 +61,11 @@ function set_canonicalized_arch () {
 	    GCE_ARCH="X86_64"
 	    KERN_ARCH="x86_64"
 	    ;;
+	ppc64le)
+	    ARCH="ppc64le"
+	    GCE_ARCH="ppc64le"
+	    KERN_ARCH="powerpc"
+	    ;;
 	*)
 	    echo "Architecture $ARCH not supported"
 	    exit 1
@@ -74,6 +80,11 @@ function set_cross_compile ()
 	arm64)
 	    if test "$MY_ARCH" != arm64 ; then
 		CROSS_COMPILE=aarch64-linux-gnu-
+	    fi
+	    ;;
+	ppc64le)
+	    if test "$MY_ARCH" != ppc64le ; then
+		CROSS_COMPILE=powerpc64le-linux-gnu-
 	    fi
 	    ;;
     esac
@@ -132,6 +143,13 @@ function get_kernel_file_info () {
 			   awk '{print $2}')
 		KERNEL_VERSION=$(dpkg -I "$KERNEL" | grep "^ Version: " | \
 			  awk '{print $2}')
+		;;
+		*"PowerPC"*)
+		KERNEL_ARCH=ppc64le
+		d=$(dirname $(dirname $(dirname $(dirname "$KERNEL"))))
+		if test -f "$d/.git_version" ; then
+		    KERNEL_VERSION=$(cat "$d/.git_version")
+		fi
 		;;
 	    *)
 		echo "get-kernel-arch $i is not a kernel" >&2

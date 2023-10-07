@@ -206,6 +206,13 @@ case "$ARCH" in
 	MACHINE_TYPE=virt
 	CPU_TYPE=max
 	;;
+    ppc64le)
+	QEMU_ARCH=ppc64
+	ACCEL=kvm:tcg
+	CONSOLE_DEV=hvc0
+	MACHINE_TYPE=pseries
+	CPU_TYPE=max
+	;;
     *)
 	echo "Unsupported architecture: $ARCH"
 	exit 1;
